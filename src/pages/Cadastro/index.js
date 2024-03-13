@@ -10,12 +10,10 @@ import { TextInput } from "react-native-web";
 export default function Cadastro() {
   return (
     <ImageBackground
-      style={styles.container}
-      source={require("../../../assets/Img/imagemFundo.jpg")}
+      style={styles.imageBackground}
+      source={require("../../../assets/Img/fundo.png")}
     >
-      <View style={styles.titulo}>
-        <Text style={styles.textTitulo}>Cadastre-se</Text>
-      </View>
+      
       <View style={styles.input}>
         <TextInput style={styles.inputStyle} placeholder={"Nome"}></TextInput>
         <TextInput style={styles.inputStyle} placeholder={"E-mail"}></TextInput>
@@ -42,6 +40,12 @@ const styles = StyleSheet.create({
     flex: 2,
 
     justifyContent: "center",
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: "cover",
+    width: '100%',
+    height: '100%'
   },
   textTitulo: {
     fontSize: 40,
