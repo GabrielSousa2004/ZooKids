@@ -1,6 +1,5 @@
 import {
   Pressable,
-  Text,
   View,
   StyleSheet,
   Image,
@@ -8,7 +7,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-web";
 
-export default function Cadastro() {
+export default function Cadastro({navigation}) {
   return (
     <ImageBackground
       style={styles.imageBackground}
@@ -24,7 +23,7 @@ export default function Cadastro() {
         ></TextInput>
       </View>
       <View style={styles.button}>
-        <Pressable style={styles.buttonStyle}>
+        <Pressable style={styles.buttonStyle} onPress={() => navigation.navigate('Login')}>
           <Image source={require("../../../assets/Img/botaoEnviar.png")}
           style={styles.imageButton}></Image>
         </Pressable>

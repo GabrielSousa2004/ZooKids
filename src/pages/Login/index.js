@@ -26,7 +26,7 @@ import {
           </View>
         </View>
         <View style={styles.button}>
-          <Pressable style={styles.buttonStyle}>
+          <Pressable style={styles.buttonStyle} onPress={() => navigation.navigate('Home')}>
             <Image source={require("../../../assets/Img/botaoEntrar.png")}
             style={styles.imageButton}></Image>
           </Pressable>
