@@ -6,24 +6,84 @@ import {
   ImageBackground,
 } from "react-native";
 import { TextInput } from "react-native-web";
+import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+
 
 export default function Cadastro({navigation}) {
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setFone] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmSenha, setConfirmSenha] = useState('');
+
+
+  function insert(){
+
+    AsyncStorage.setItem('nome', nome ).then(() =>{
+      console.log("Dados Armazenados com sucesso!");
+    })
+    .catch(error => {
+      console.error("Deu bom nao meu chegado",error);
+    });
+    
+    AsyncStorage.setItem('email', email ).then(() =>{
+      console.log("Dados Armazenados com sucesso!");
+    })
+    .catch(error => {
+      console.error("Deu bom nao meu chegado",error);
+    });
+
+    AsyncStorage.setItem('telefone', telefone ).then(() =>{
+      console.log("Dados Armazenados com sucesso!");
+    })
+    .catch(error => {
+      console.error("Deu bom nao meu chegado",error);
+    });
+    
+    AsyncStorage.setItem('senha', senha).then(() => {
+      console.log("Dados armazenados")
+    })
+    
+    .catch(error => {
+      console.error("erro", error)
+    });
+  }
+
+function  navegação(){
+  insert();
+  if(nome != undefined){
+
+    return navigation.navigate('Endereco')
+  } else{
+    console.error("erro")
+  }
+  
+  
+}
+
+  
   return (
     <ImageBackground
       style={styles.imageBackground}
       source={require("../../../assets/Img/fundo.png")}
     >
       <View style={styles.input}>
-        <TextInput style={styles.inputStyle} placeholder={"Nome"}></TextInput>
-        <TextInput style={styles.inputStyle} placeholder={"E-mail"}></TextInput>
-        <TextInput style={styles.inputStyle} placeholder={"Senha"}></TextInput>
+        <TextInput style={styles.inputStyle} placeholder={"Nome"} value={nome} onChangeText={(texto) =>setNome(texto)}></TextInput>
+        <TextInput style={styles.inputStyle} placeholder={"E-mail"} value={email} onChangeText={(texto) =>setEmail(texto)}></TextInput>
+        <TextInput style={styles.inputStyle} placeholder={"Telefone"} value={telefone} onChangeText={(texto) =>setFone(texto)}></TextInput>
+        <TextInput style={styles.inputStyle} placeholder={"Senha"} value={senha} onChangeText={(texto) =>setSenha(texto)}></TextInput>
         <TextInput
           style={styles.inputStyle}
           placeholder={"Confirmar senha"}
+          value={confirmSenha} onChangeText={(texto) =>setConfirmSenha(texto)}
         ></TextInput>
       </View>
       <View style={styles.button}>
-        <Pressable style={styles.buttonStyle} onPress={() => navigation.navigate('Login')}>
+        <Pressable style={styles.buttonStyle} onPress={()=> navegação()}>
           <Image source={require("../../../assets/Img/botaoEnviar.png")}
           style={styles.imageButton}></Image>
         </Pressable>
