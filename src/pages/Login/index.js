@@ -7,11 +7,49 @@ import {
     ImageBackground,
     TextInput
   } from "react-native";
+  import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
+  useState
   
   
+  
+  
+  
+  export default function Login({navigation}) {
 
+    const [email, setEmail] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [inputSenha, setInputSenha] = useState('');
+    const [texto, setTexto] = useState('');
+    
+    AsyncStorage.getItem('email').then(email =>{
+      setEmail(email)
+      console.log ("email chegando", email)
+    })
+    .catch(error => {
+      console.error("Deu bom nao meu chegado",error);
+    });
+  
+    
+    
+    AsyncStorage.getItem('senha').then(senha => {
+      setSenha(senha)
+      console.log(senha)
+    })
 
-  export default function Cadastro({navigation}) {
+const verificacao = (()=>{
+
+  if (inputEmail == email & inputSenha == senha) {
+    return navigation.navigate('Home')
+  } else {
+    console.log('Dados incorreto')
+    setTexto( "Email ou senha invalido(s)");
+  }
+});
+
+   
+
     return (
       <ImageBackground
         style={styles.imageBackground}
@@ -19,17 +57,17 @@ import {
       >
         <View style={styles.input}>
           
-          <TextInput style={styles.inputStyle} placeholder={"E-mail"}></TextInput>
-          <TextInput style={styles.inputStyle} placeholder={"Senha"}></TextInput>
+          <TextInput style={styles.inputStyle} placeholder={"E-mail"} value={inputEmail} onChangeText={(texto) =>setInputEmail(texto)}></TextInput>
+          <TextInput style={styles.inputStyle} placeholder={"Senha"} value={inputSenha} onChangeText={(texto) =>setInputSenha(texto)}></TextInput>
+            <Text style={styles.textVerificacao}>{texto}</Text>
           <View style={styles.cadastro}>
           <Text style={styles.text}>Não tem uma conta?</Text><Pressable onPress={() => navigation.navigate('Cadastro')}>
             <Text style={styles.textCadastro}> Cadastre-se</Text>
             </Pressable>
-
           </View>
         </View>
         <View style={styles.button}>
-          <Pressable style={styles.buttonStyle} onPress={() => navigation.navigate('Home')}>
+          <Pressable style={styles.buttonStyle} onPress={verificacao}>
             <Image source={require("../../../assets/Img/botaoEntrar.png")}
             style={styles.imageButton}></Image>
           </Pressable>
@@ -50,6 +88,12 @@ import {
     width: 150,
     height: 100,
     resizeMode: 'contain'
+  },
+
+  textVerificacao:{
+    fontWeight: '600',
+    color: 'red',
+    textAlign: 'center'
   },
 
   cadastro:{

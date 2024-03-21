@@ -23,32 +23,47 @@ import {
   
     function insert(){
   
-      AsyncStorage.setItem('nome', nome ).then(() =>{
+      AsyncStorage.setItem('cep', cep ).then(() =>{
         console.log("Dados Armazenados com sucesso!");
       })
       .catch(error => {
         console.error("Deu bom nao meu chegado",error);
       });
       
-      AsyncStorage.setItem('email', email ).then(() =>{
+      AsyncStorage.setItem('endereco', endereco ).then(() =>{
         console.log("Dados Armazenados com sucesso!");
       })
       .catch(error => {
         console.error("Deu bom nao meu chegado",error);
       });
       
-      AsyncStorage.setItem('senha', senha).then(() => {
+      AsyncStorage.setItem('numero', numero).then(() => {
         console.log("Dados armazenados")
       })
       
       .catch(error => {
         console.error("erro", error)
       });
+      AsyncStorage.setItem('bairro', bairro).then(() => {
+        console.log("Dados armazenados")
+      })
+      
+      .catch(error => {
+        console.error("erro", error)
+      });
+      AsyncStorage.setItem('cidade', cidade).then(() => {
+        console.log("Dados armazenados")
+      })
+      
+      .catch(error => {
+        console.error("erro", error)
+      });
+        
     }
   
   function  navegação(){
     insert();
-    if(nome != undefined){
+    if(cep != undefined){
   
       return navigation.navigate('Login')
     } else{
