@@ -12,16 +12,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Cadastro({ navigation }) {
-  const [nome, setNome] = useState();
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
-  const [telefone, setFone] = useState();
-  const [confirmSenha, setConfirmSenha] = useState();
-  const [textSenha, setTextSenha] = useState();
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [telefone, setFone] = useState("");
+  const [confirmSenha, setConfirmSenha] = useState("");
+  const [textSenha, setTextSenha] = useState("");
+  const [validacao, setValidacao] = useState("");
   const [esconderSenha, setEsconderSenha] = useState(true);
-  const [campo, setCampo] = useState(0);
-  
-const vazio = [nome, email, senha, telefone];
+  const [campo, setCampo] =useState(false);
+const vazio = [nome, email, telefone, senha, confirmSenha];
 
   function insert() {
     AsyncStorage.setItem("nome", nome)
@@ -58,25 +59,19 @@ const vazio = [nome, email, senha, telefone];
       });
   }
 
-  function navegação() {
-    
-    for( i=0; i<= vazio.length; i++){
-      if( vazio[i] != undefined){
-          setCampo(campo+1)
-          console.log('adicionou o campo', campo) 
-        }
+  function navegacao() {
+    for (let i = 0; i < vazio.length; i++) {
+      if (!vazio[i]) {
+        setValidacao("Preencha todos os campos");
+        setCampo(false); // Define como false se encontrar pelo menos um campo vazio
+        return; // Sai da função se encontrar um campo vazio
       }
-      
-      if (campo ==0 ){
-        console.log('Preencha todos os campos')
-        console.log((vazio.length)+1)
-        console.log(campo)
-
-      } else if (campo == (vazio.length)+1) {
-        console.log('todos os campos preenchidos')
-        insert();
-      }
+    }
+  
+    // Se o loop não encontrar nenhum campo vazio, define o estado campo como true
+    setCampo(true);
   }
+
 
   return (
     <ImageBackground
@@ -124,11 +119,11 @@ const vazio = [nome, email, senha, telefone];
           secureTextEntry={esconderSenha}
           onChangeText={(texto) => setConfirmSenha(texto)}
         ></TextInput>
-      </View>
-      <Text>{nome}</Text>
+      </View> 
+      <Text style={styles.textVerificacao}>{validacao}</Text>
      <Text style={styles.textVerificacao}>{textSenha}</Text>
       <View style={styles.button}>
-        <Pressable style={styles.buttonStyle} onPress={() => navegação()}>
+        <Pressable style={styles.buttonStyle} onPress={() => navegacao()}>
           <Image
             source={require("../../../assets/Img/botaoProximo.png")}
             style={styles.imageButton}
