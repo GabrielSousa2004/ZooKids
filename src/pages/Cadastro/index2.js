@@ -7,7 +7,7 @@ import {
     Alert,
   } from "react-native";
   import { TextInput } from "react-native-web";
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
   import AsyncStorage from "@react-native-async-storage/async-storage";
   import viaCep from "../../services/viaCep"
   import axios from 'axios'
@@ -24,6 +24,40 @@ import {
     const [estado, setEstado] = useState("");
     const[idUsuario, setIdUsuario] = useState((route.params.idUser));
   
+    
+    
+    
+    
+    const insert = async () => {
+      const dadosLog = {
+        'idUsuario': idUsuario,
+        'cepLogradouro': cep,
+        'nomeLogradouro': endereco,
+        'bairroLogradouro':bairro,
+        'numLogradouro': numero,
+        'cidadeLogradouro': cidade,
+        'ufLogradouro': estado
+      };
+      
+      const axiosConfig = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/x-www-form-urlencoded'
+        }
+      };
+      
+      try {
+        const response = await axios.post('http://localhost/ZooKids-api/logInsert', dadosLog, axiosConfig);
+        
+        navigation.navigate("Login");
+      } catch (error) {
+        console.error("Erro ao criar um logradouro", error);
+      }
+    }
+    
+    useEffect(() => {
+      buscarCep();
+    }, [cep]);
     async function buscarCep(){
       if(cep == '') {
         Alert.alert('Preencha o Campo')
@@ -36,41 +70,11 @@ import {
         setCidade(response.data.localidade)
         setEstado(response.data.uf)
       }catch(error){
-        console.log (error, "erro interno")
+        console.log (error, "erro ao puxar cep")
       }
     }
-  
     
-    const insert = async () => {
-      const dadosLog = {
-        'idUsuario': idUsuario,
-        'cepLogradouro': cep,
-        'nomeLogradouro': endereco,
-        'bairroLogradouro':bairro,
-        'numLogradouro': numero,
-        'cidadeLogradouro': cidade,
-        'ufLogradouro': estado
-      };
-
-      const axiosConfig = {
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/x-www-form-urlencoded'
-        }
-      };
-
-      try {
-        const response = await axios.post('http://localhost/bdetec/logInsert', dadosLog, axiosConfig);
-        
-          navigation.navigate("Login");
-      } catch (error) {
-        console.error("Erro ao criar um logradouro", error);
-      }
-  }
-
-  
   function navegacao() {
-    buscarCep()
     if (!cep || !numero) {
         console.log('Preencha todos os campos');
     } else {

@@ -4,14 +4,14 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
 import Endereco from '../pages/Cadastro/index2';
-
+import Splash from '../pages/Splash';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackRoutes() {
     return (
 
-<Stack.Navigator initialRouteName='Cadastro'>
+<Stack.Navigator initialRouteName='Splash'>
     <Stack.Screen
         name= 'Home'
         component={Home}
@@ -47,6 +47,16 @@ export default function StackRoutes() {
         component={Endereco}
         options={{
             title: 'Cadastro',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Splash'
+        component={Splash}
+        options={{
+            title: 'Inicio',
             headerStyle: { backgroundColor: 'white' },
             headerTintColor: 'white',
             headerShown: false,

@@ -65,3 +65,40 @@ const verificarSenha = () => {
       });
         
     }
+
+
+
+      AsyncStorage.getItem('email').then(email =>{
+      setEmail(email)
+      console.log ("email chegando", email)
+    })
+    .catch(error => {
+      console.error("Deu bom nao meu chegado",error);
+    });
+  
+    
+    
+    AsyncStorage.getItem('senha').then(senha => {
+      setSenha(senha)
+      console.log(senha)
+    })
+
+
+
+    AsyncStorage.setItem('email', response.data.email).then(() =>{
+            console.log("Dados Armazenados com sucesso!");
+          })
+            
+          
+          .catch(error => {
+            console.error("Deu bom nao meu chegado",error);
+          });
+        
+          
+          
+          AsyncStorage.setItem('senha',response.data.senha).then(()=>{
+            console.log("Dados Armazenados com sucesso!");
+          }) 
+          .catch(error => {
+            console.error("Deu bom nao meu chegado",error);
+          });

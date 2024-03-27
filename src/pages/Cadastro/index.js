@@ -45,7 +45,7 @@ const carregar = async () => {
   };
 
   try {
-    const response = await axios.post('http://localhost/bdetec/userInsert', dadosUser, axiosConfig);
+    const response = await axios.post('http://localhost/ZooKids-api/userInsert', dadosUser, axiosConfig);
     
       navigation.navigate("Endereco", { idUser: response.data.id });
   } catch (error) {
