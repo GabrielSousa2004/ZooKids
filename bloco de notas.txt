@@ -1,0 +1,67 @@
+function navegacao() {
+  let todosCamposPreenchidos = true;
+
+  // Verifica se todos os campos estão preenchidos
+  for (let i = 0; i < vazio.length; i++) {
+    if (!vazio[i]) {
+      todosCamposPreenchidos = false;
+      break;
+    }
+  }
+
+  // Se algum campo estiver vazio, exibe a mensagem
+  if (!todosCamposPreenchidos) {
+    setValidacao("Preencha todos os campos");
+  } else {
+    verificarSenha();
+  }
+}
+
+const verificarSenha = () => {
+  if (senha === confirmSenha) {
+    navigation.navigate("Endereco");
+  } else {
+    setTextSenha("As senhas não correspondem");
+  }
+}
+
+
+    function insert(){
+  
+      AsyncStorage.setItem('cep', cep ).then(() =>{
+        console.log("Dados Armazenados com sucesso!");
+      })
+      .catch(error => {
+        console.error("Deu bom nao meu chegado",error);
+      });
+      
+      AsyncStorage.setItem('endereco', endereco ).then(() =>{
+        console.log("Dados Armazenados com sucesso!");
+      })
+      .catch(error => {
+        console.error("Deu bom nao meu chegado",error);
+      });
+      
+      AsyncStorage.setItem('numero', numero).then(() => {
+        console.log("Dados armazenados")
+      })
+      
+      .catch(error => {
+        console.error("erro", error)
+      });
+      AsyncStorage.setItem('bairro', bairro).then(() => {
+        console.log("Dados armazenados")
+      })
+      
+      .catch(error => {
+        console.error("erro", error)
+      });
+      AsyncStorage.setItem('cidade', cidade).then(() => {
+        console.log("Dados armazenados")
+      })
+      
+      .catch(error => {
+        console.error("erro", error)
+      });
+        
+    }

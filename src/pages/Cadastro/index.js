@@ -7,11 +7,13 @@ import {
   ImageBackground,
 } from "react-native";
 import { TextInput } from "react-native-web";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import axios from 'axios'
 
-export default function Cadastro({ navigation }) {
+
+export default function Cadastro({ navigation, }) {
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -21,57 +23,63 @@ export default function Cadastro({ navigation }) {
   const [textSenha, setTextSenha] = useState("");
   const [validacao, setValidacao] = useState("");
   const [esconderSenha, setEsconderSenha] = useState(true);
-  const [campo, setCampo] =useState(false);
+  const [idUsuario, setIdUsuario] = useState(0);
+
 const vazio = [nome, email, telefone, senha, confirmSenha];
 
-  function insert() {
-    AsyncStorage.setItem("nome", nome)
-      .then(() => {
-        console.log("Dados Armazenados com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Deu bom nao meu chegado", error);
-      });
 
-    AsyncStorage.setItem("email", email)
-      .then(() => {
-        console.log("Dados Armazenados com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Deu bom nao meu chegado", error);
-      });
 
-    AsyncStorage.setItem("telefone", telefone)
-      .then(() => {
-        console.log("Dados Armazenados com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Deu bom nao meu chegado", error);
-      });
+const carregar = async () => {
+  const dadosUser = {
+    'nome': nome,
+    'email': email,
+    'senha': senha,
+    'telefone': telefone,
+  };
 
-    AsyncStorage.setItem("senha", senha)
-      .then(() => {
-        console.log("Dados armazenados");
-      })
-
-      .catch((error) => {
-        console.error("erro", error);
-      });
-  }
-
-  function navegacao() {
-    for (let i = 0; i < vazio.length; i++) {
-      if (!vazio[i]) {
-        setValidacao("Preencha todos os campos");
-        setCampo(false); // Define como false se encontrar pelo menos um campo vazio
-        return; // Sai da função se encontrar um campo vazio
-      }
+  const axiosConfig = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-type': 'application/x-www-form-urlencoded'
     }
-  
-    // Se o loop não encontrar nenhum campo vazio, define o estado campo como true
-    setCampo(true);
+  };
+
+  try {
+    const response = await axios.post('http://localhost/bdetec/userInsert', dadosUser, axiosConfig);
+    
+      navigation.navigate("Endereco", { idUser: response.data.id });
+  } catch (error) {
+    console.error("Erro ao criar um usuario", error);
   }
 
+  
+}
+
+const verificarCampos = () => {
+  let todosCamposPreenchidos = true;
+  for (let i = 0; i < vazio.length; i++) {
+    if (!vazio[i]) {
+      todosCamposPreenchidos = false;
+      break;
+    }
+  }
+  return todosCamposPreenchidos;
+}
+
+const navegacao = ()  => {
+  if(verificarCampos()){
+  if (senha === confirmSenha) {
+      carregar();
+      setValidacao("")
+    }else {
+      setValidacao("")
+      setTextSenha("As senhas não correspondem");
+    }   
+  } else {
+    setTextSenha("")
+    setValidacao("Preencha todos os campos");
+  }
+}
 
   return (
     <ImageBackground

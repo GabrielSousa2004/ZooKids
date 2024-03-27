@@ -4,75 +4,85 @@ import {
     StyleSheet,
     Image,
     ImageBackground,
+    Alert,
   } from "react-native";
   import { TextInput } from "react-native-web";
   import { useState } from "react";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+  import viaCep from "../../services/viaCep"
+  import axios from 'axios'
   
   
   
+  export default function Endereco({navigation, route}) {
   
-  export default function Endereco({navigation}) {
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [numero, setNumero] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [estado, setEstado] = useState("");
+    const[idUsuario, setIdUsuario] = useState((route.params.idUser));
   
-    const [cep, setCep] = useState('');
-    const [endereco, setEndereco] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cidade, setCidade] = useState('');
+    async function buscarCep(){
+      if(cep == '') {
+        Alert.alert('Preencha o Campo')
+      }
+
+      try {
+        const response = await viaCep.get(`/${cep}/json/`);
+        setEndereco(response.data.logradouro)
+        setBairro(response.data.bairro)
+        setCidade(response.data.localidade)
+        setEstado(response.data.uf)
+      }catch(error){
+        console.log (error, "erro interno")
+      }
+    }
   
-  
-    function insert(){
-  
-      AsyncStorage.setItem('cep', cep ).then(() =>{
-        console.log("Dados Armazenados com sucesso!");
-      })
-      .catch(error => {
-        console.error("Deu bom nao meu chegado",error);
-      });
-      
-      AsyncStorage.setItem('endereco', endereco ).then(() =>{
-        console.log("Dados Armazenados com sucesso!");
-      })
-      .catch(error => {
-        console.error("Deu bom nao meu chegado",error);
-      });
-      
-      AsyncStorage.setItem('numero', numero).then(() => {
-        console.log("Dados armazenados")
-      })
-      
-      .catch(error => {
-        console.error("erro", error)
-      });
-      AsyncStorage.setItem('bairro', bairro).then(() => {
-        console.log("Dados armazenados")
-      })
-      
-      .catch(error => {
-        console.error("erro", error)
-      });
-      AsyncStorage.setItem('cidade', cidade).then(() => {
-        console.log("Dados armazenados")
-      })
-      
-      .catch(error => {
-        console.error("erro", error)
-      });
+    
+    const insert = async () => {
+      const dadosLog = {
+        'idUsuario': idUsuario,
+        'cepLogradouro': cep,
+        'nomeLogradouro': endereco,
+        'bairroLogradouro':bairro,
+        'numLogradouro': numero,
+        'cidadeLogradouro': cidade,
+        'ufLogradouro': estado
+      };
+
+      const axiosConfig = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/x-www-form-urlencoded'
+        }
+      };
+
+      try {
+        const response = await axios.post('http://localhost/bdetec/logInsert', dadosLog, axiosConfig);
         
-    }
-  
-  function  navegação(){
-    insert();
-    if(cep != undefined){
-  
-      return navigation.navigate('Login')
-    } else{
-      console.error("erro")
-    }
-    
-    
+          navigation.navigate("Login");
+      } catch (error) {
+        console.error("Erro ao criar um logradouro", error);
+      }
   }
+
   
+  function navegacao() {
+    buscarCep()
+    if (!cep || !numero) {
+        console.log('Preencha todos os campos');
+    } else {
+        // Se ambos os campos estiverem preenchidos, realiza a inserção
+        insert();
+    }
+}
+    
+    
+  
+  
+  console.log((route.params.idUser), "id do usuario")
     
     return (
       <ImageBackground
@@ -85,10 +95,11 @@ import {
           <TextInput style={styles.inputStyle} placeholder={"Nº"} value={numero} onChangeText={(texto) =>setNumero(texto)}></TextInput>
           <TextInput style={styles.inputStyle} placeholder={"Bairro"} value={bairro} onChangeText={(texto) =>setBairro(texto)}></TextInput>
           <TextInput style={styles.inputStyle} placeholder={"Cidade"} value={cidade} onChangeText={(texto) =>setCidade(texto)}></TextInput>
+          <TextInput style={styles.inputStyle} placeholder={"Estado"} value={estado} onChangeText={(texto) =>setEstado(texto)}></TextInput>
         
         </View>
         <View style={styles.button}>
-          <Pressable style={styles.buttonStyle} onPress={()=> navegação()}>
+          <Pressable style={styles.buttonStyle} onPress={()=> navegacao()}>
             <Image source={require("../../../assets/Img/botaoEnviar.png")}
             style={styles.imageButton}></Image>
           </Pressable>
