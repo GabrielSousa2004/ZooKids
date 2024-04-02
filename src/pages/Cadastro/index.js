@@ -130,14 +130,14 @@ const navegacao = ()  => {
       </View> 
       <Text style={styles.textVerificacao}>{validacao}</Text>
      <Text style={styles.textVerificacao}>{textSenha}</Text>
-      <View style={styles.button}>
+      
         <Pressable style={styles.buttonStyle} onPress={() => navegacao()}>
           <Image
             source={require("../../../assets/Img/botaoProximo.png")}
             style={styles.imageButton}
           ></Image>
         </Pressable>
-      </View>
+      
     </ImageBackground>
   );
 }
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
+    alignItems: 'center',
   },
 
   textVerificacao:{
@@ -186,16 +187,13 @@ const styles = StyleSheet.create({
     color: "white",
   },
   input: {
-    flex: 1,
-    width: 280,
-    margin: "auto",
-    marginTop: "60%",
-    borderWidth: 3,
-    borderRadius: 15,
-    borderColor: "#8a4617",
-    justifyContent: "space-evenly",
-    backgroundColor: "#f5d1ad",
-    paddingVertical: 20
+    flex: 0.38,
+      width: "80%",
+      borderWidth: 3,
+      borderRadius: 15,
+      borderColor: "#8a4617",
+      justifyContent: "space-evenly",
+      backgroundColor: "#f5d1ad",
     
   },
   inputStyle: {
@@ -219,10 +217,7 @@ const styles = StyleSheet.create({
     color: "#8a4617",
   },
 
-  button: {
-    flex: 1,
-  },
-  buttonStyle: {
+  tonStyle: {
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",

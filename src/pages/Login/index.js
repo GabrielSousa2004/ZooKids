@@ -5,10 +5,11 @@ import {
     StyleSheet,
     Image,
     ImageBackground,
-    TextInput
+    TextInput,
   } from "react-native";
   import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios'
   
   
@@ -18,7 +19,7 @@ import axios from 'axios'
   export default function Login({navigation}) {
 
     const [inputEmail, setInputEmail] = useState('');
-    
+    const [esconderSenha, setEsconderSenha] = useState(true);
     const [inputSenha, setInputSenha] = useState('');
     const [texto, setTexto] = useState('');
     
@@ -87,7 +88,21 @@ import axios from 'axios'
         <View style={styles.input}>
           
           <TextInput style={styles.inputStyle} placeholder={"E-mail"} value={inputEmail} onChangeText={(texto) =>setInputEmail(texto)}></TextInput>
-          <TextInput style={styles.inputStyle} placeholder={"Senha"} value={inputSenha} onChangeText={(texto) =>setInputSenha(texto)}></TextInput>
+          <View style={styles.inputSenha}>
+          <TextInput
+            style={styles.inputStyleSenha}
+            placeholder={"Senha"}
+            value={inputSenha}
+            secureTextEntry={esconderSenha}
+            onChangeText={(texto) => setInputSenha(texto)}
+          ></TextInput>
+          <Pressable
+            style={styles.icon}
+            onPress={() => setEsconderSenha(!esconderSenha)}
+          >
+            <Ionicons name="eye" color="#8a4617" size={25} />
+          </Pressable>
+        </View>
             <Text style={styles.textVerificacao}>{texto}</Text>
           <View style={styles.cadastro}>
           <Text style={styles.text}>Não tem uma conta?</Text><Pressable onPress={() => navigation.navigate('Cadastro')}>
@@ -95,12 +110,12 @@ import axios from 'axios'
             </Pressable>
           </View>
         </View>
-        <View style={styles.button}>
+        
           <Pressable style={styles.buttonStyle} onPress={() => carregar()}>
             <Image source={require("../../../assets/Img/botaoEntrar.png")}
             style={styles.imageButton}></Image>
           </Pressable>
-        </View>
+       
       </ImageBackground>
     );
   }
@@ -112,6 +127,8 @@ import axios from 'axios'
       width: "100%",
       height: "100%",
       justifyContent: "center",
+      alignItems: 'center',
+      
     },
   imageButton:{
     width: 150,
@@ -149,15 +166,14 @@ import axios from 'axios'
       color: "white",
     },
     input: {
-      flex: 1,
+      flex: 0.35,
       width: "80%",
-      margin: "auto",
-      marginTop: "50%",
       borderWidth: 3,
       borderRadius: 15,
       borderColor: "#8a4617",
       justifyContent: "space-evenly",
       backgroundColor: "#f5d1ad",
+      
     },
     inputStyle: {
       borderBottomWidth: 1,
@@ -168,9 +184,26 @@ import axios from 'axios'
       borderColor: "#8a4617",
       color: "#8a4617",
     },
-    button: {
-      flex: 1,
+    inputSenha:{
+      flexDirection: "row",
+      justifyContent: "center" 
     },
+    
+    inputStyleSenha: {
+      borderBottomWidth: 1,
+      width: "70%",
+      padding: 10,
+      alignSelf: "center",
+  
+      borderColor: "#8a4617",
+      color: "#8a4617",
+    },  
+    icon: {
+      borderBottomWidth: 1,
+      borderColor: "#8a4617",
+      alignSelf: "end",
+    },
+
     buttonStyle: {
       alignSelf: "center",
       justifyContent: "center",

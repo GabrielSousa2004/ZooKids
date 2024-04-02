@@ -94,7 +94,7 @@ import {
         source={require("../../../assets/Img/fundo.png")}
       >
         <View style={styles.input}>
-          <TextInput style={styles.inputStyle} placeholder={"CEP"} value={cep} onChangeText={(texto) =>setCep(texto)}></TextInput>
+          <TextInput style={styles.inputStyle} placeholder={"Cep"} value={cep} onChangeText={(texto) =>setCep(texto)}></TextInput>
           <TextInput style={styles.inputStyle} placeholder={"Endereço"} value={endereco} onChangeText={(texto) =>setEndereco(texto)}></TextInput>
           <TextInput style={styles.inputStyle} placeholder={"Nº"} value={numero} onChangeText={(texto) =>setNumero(texto)}></TextInput>
           <TextInput style={styles.inputStyle} placeholder={"Bairro"} value={bairro} onChangeText={(texto) =>setBairro(texto)}></TextInput>
@@ -102,12 +102,12 @@ import {
           <TextInput style={styles.inputStyle} placeholder={"Estado"} value={estado} onChangeText={(texto) =>setEstado(texto)}></TextInput>
         
         </View>
-        <View style={styles.button}>
+        
           <Pressable style={styles.buttonStyle} onPress={()=> navegacao()}>
             <Image source={require("../../../assets/Img/botaoEnviar.png")}
             style={styles.imageButton}></Image>
           </Pressable>
-        </View>
+        
       </ImageBackground>
     );
   }
@@ -119,6 +119,7 @@ import {
       width: "100%",
       height: "100%",
       justifyContent: "center",
+      alignItems: 'center'
     },
   imageButton:{
     width: 150,
@@ -141,10 +142,8 @@ import {
       color: "white",
     },
     input: {
-      flex: 1,
+      flex: 0.35,
       width: "80%",
-      margin: "auto",
-      marginTop: "50%",
       borderWidth: 3,
       borderRadius: 15,
       borderColor: "#8a4617",

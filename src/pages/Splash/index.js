@@ -40,7 +40,7 @@ export default function Splash({navigation}){
    
     return(
         <ImageBackground style={styles.container}
-        source={require("../../../assets/Img/fundoLogin.png")}
+        source={require("../../../assets/Img/fundoSplash.jpg")}
         >
             <LoadView/>
             
