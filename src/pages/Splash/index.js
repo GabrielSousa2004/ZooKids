@@ -1,11 +1,13 @@
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, Text } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadView from '../../components/loadView.js';
+
 export default function Splash({navigation}){
-    const [loading, setLoading] = useState(true);
+    
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-
+    const [load,setLoad] = useState(true);
     useEffect(() => {
         const cache = async() => {
             await AsyncStorage.getItem('email').then(email =>{
@@ -22,36 +24,36 @@ export default function Splash({navigation}){
                 setSenha(senha)
                 
             })
+            setLoad(false)
         }
         cache();
-        
         setTimeout(() => {
-            if (email && senha !== "") {
+            if (email && senha !="") {
                 navigation.navigate("Home");
             } else {
+                
                 navigation.navigate("Login");
             }
-        }, 3000);
+        }, 1500);
 
-        
     })
-    console.log(email, senha)
+   
     return(
-
-
-
-        <ImageBackground
-        style={styles.imageBackground}
+        <ImageBackground style={styles.container}
         source={require("../../../assets/Img/fundoLogin.png")}
-      />
+        >
+            <LoadView/>
+            
+        </ImageBackground>
        
     );}
 
     const styles = StyleSheet.create({
-        imageBackground: {
+        container: {
           flex: 1,
           resizeMode: "cover",
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+        
         },});
