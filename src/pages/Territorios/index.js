@@ -7,7 +7,7 @@ export default function Territorios() {
 
         <ImageBackground
             style={styles.imageBackground}
-            source={require("../../../assets/Img/roxoPlaca.png")}>
+            source={require("../../../assets/Img/azulPlaca.png")}>
 
             <View style={styles.header}>
                 <Pressable style={styles.menuContainer}>

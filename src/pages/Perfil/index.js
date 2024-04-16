@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-export default function Home() {
+export default function Perfil() {
   return (
     <ImageBackground
       style={styles.imageBackground}
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   textButton: {
     color: "white",
     alignSelf: "center",
+    fontWeight:'bold'
   },
   boxDados: {
     flex: 0.4,

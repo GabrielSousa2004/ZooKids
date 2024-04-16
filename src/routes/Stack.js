@@ -5,14 +5,22 @@ import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
 import Endereco from '../pages/Cadastro/index2';
 import Splash from '../pages/Splash';
-import Perfil from '../pages/Perfil'
+import Perfil from '../pages/Perfil';
+import Territorios from '../pages/Territorios';
+import Territorio2 from '../pages/Territorios/index2';
+import Territorio3 from '../pages/Territorios/index3';
+import Territorio4 from '../pages/Territorios/index4';
+import Territorio5 from '../pages/Territorios/index5';
+import Territorio6 from '../pages/Territorios/index6';
+
+
 
 const Stack = createNativeStackNavigator();
 
 export default function StackRoutes() {
     return (
 
-<Stack.Navigator initialRouteName='Home'>
+<Stack.Navigator initialRouteName='Territorio6'>
     <Stack.Screen
         name= 'Home'
         component={Home}
@@ -73,4 +81,65 @@ export default function StackRoutes() {
             headerShown: false,
           }}
     />
+    <Stack.Screen
+        name= 'Territorios'
+        component={Territorios}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Territorio2'
+        component={Territorio2}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Territorio3'
+        component={Territorio3}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Territorio4'
+        component={Territorio4}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Territorio5'
+        component={Territorio5}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Territorio6'
+        component={Territorio6}
+        options={{
+            title: 'Territorios',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    
 </Stack.Navigator>);}
