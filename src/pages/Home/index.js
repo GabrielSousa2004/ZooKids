@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
 
+
 export default function Home() {
     return (
 
@@ -9,10 +10,6 @@ export default function Home() {
             source={require("../../../assets/Img/fundoTerritorio.png")}>
 
             <View style={styles.header}>
-                <Text style={styles.titulo}>Perfil</Text>
-                <Pressable style={styles.setaContainer}>
-                    <Image source={require("../../../assets/Img/seta.png")} style={styles.imageSeta} />
-                </Pressable>
                 <Pressable style={styles.menuContainer}>
                     <Image source={require("../../../assets/Img/garrasMenu.png")} style={styles.imageMenu} />
                 </Pressable>
@@ -39,9 +36,11 @@ const styles = StyleSheet.create({
     imageMenu: {
         width: 60,
         height: 60,
-        position: 'absolute',
-        top: 15,
-        right: 10
+    },
+    menuContainer:{
+        position:'absolute',
+        right:10,
+        top:1
     },
     header: {
         flexDirection: 'row',
@@ -66,10 +65,5 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
     },
-    menuContainer:{
-        position:'absolute',
-        right:10,
-        top:4
-    }
 }
 );
