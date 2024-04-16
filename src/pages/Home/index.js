@@ -1,113 +1,75 @@
-import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
 
 export default function Home() {
     return (
-        <View style={styles.container}>
-            <View style={styles.titulo}>
-                <View style={styles.fundoPerfil}>
-                    <Image source={require("../../../assets/Img/fundoPerfil.jpg")} style={styles.imgPerfil} />
-                </View>
-                <View style={styles.perfil}></View>
-                <View style={styles.circulo}>
-                    <Image source={require("../../../assets/Img/usuario.png")}
-                        style={styles.imgUsuario}></Image>
-                    <View style={styles.boxDados}>
-                        <Text style={styles.textTitulo} >Gabriel da Silva Sousa</Text>
-                        <Text style={styles.txtEmail} >gabrielsilva.sousa2004@gmail.com</Text>
-                    </View>
-                </View>
+
+
+        <ImageBackground
+            style={styles.imageBackground}
+            source={require("../../../assets/Img/fundoTerritorio.png")}>
+
+            <View style={styles.header}>
+                <Text style={styles.titulo}>Perfil</Text>
+                <Pressable style={styles.setaContainer}>
+                    <Image source={require("../../../assets/Img/seta.png")} style={styles.imageSeta} />
+                </Pressable>
+                <Pressable style={styles.menuContainer}>
+                    <Image source={require("../../../assets/Img/garrasMenu.png")} style={styles.imageMenu} />
+                </Pressable>
             </View>
-            <View style={styles.dados}>
-            <View style={styles.button}>
-          <Pressable style={styles.buttonStyle}>
-            <Image source={require("../../../assets/Img/botaoEntrar.png")}
-            style={styles.imageButton}></Image>
-          </Pressable>
-        </View>
-            </View>
-        </View>
-    );
+
+        </ImageBackground>
+    )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    imageBackground: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        resizeMode: "cover",
+        width: "100%",
+        height: "100%",
     },
-    imageButton:{
-        width: 150,
-        height: 100,
-        resizeMode: 'contain'
-      },
-      buttonStyle: {
-        alignSelf: "center",
-        justifyContent: "center",
-        alignItems: "center",
-       
-      },
-    titulo: {
-        flex: 1,
-        justifyContent: 'center',
-
-
-    },
-    imgPerfil: {
-        resizeMode: 'cover'
-
-    },
-    fundoPerfil: {
-        flex: 3.2,
-        backgroundColor: 'red',
-
-    },
-    perfil: {
-        flex: 2,
-        backgroundColor: '#fff',
-
-
-    },
-
-    imgUsuario: {
-        resizeMode: 'stretch',
-        height: '100%',
-        width: '100%',
-        borderWidth: 3,
-        borderRadius: '100%',
-        alignSelf: 'center',
-
-
-    },
-    circulo: {
-        marginTop: 60,
-        backgroundColor: 'transparent',
+    imageSeta: {
+        width: 30,
+        height: 30,
         position: 'absolute',
-        height: 180,
-        width: 180,
-        alignSelf: 'center'
-
+        top: 25,
+        left: 20
     },
-    textTitulo: {
-        fontSize: 18,
-        fontFamily: 'Bold',
+    imageMenu: {
+        width: 60,
+        height: 60,
+        position: 'absolute',
+        top: 15,
+        right: 10
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        paddingHorizontal: 20,
+    },
+    titulo: {
+        fontSize: 40,
+        fontWeight: "bold",
+        color: "black",
         textAlign: 'center',
-
+        flex: 1
     },
-    boxDados: {
-        width: '100%'
+    setaContainer: {
+        position: 'absolute',
+        left: 10,
+        top: 10,
     },
-    txtEmail: {
-        fontSize: 10,
-        fontFamily: 'Bold',
-        textAlign: 'center',
-        color: 'gray'
-
+    imageSeta: {
+        width: 30,
+        height: 30,
     },
-    dados: {
-        flex: 0.7,
-        backgroundColor: '#fff',
-
+    menuContainer:{
+        position:'absolute',
+        right:10,
+        top:4
     }
-
-
-});
+}
+);

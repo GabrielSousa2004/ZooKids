@@ -5,13 +5,14 @@ import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
 import Endereco from '../pages/Cadastro/index2';
 import Splash from '../pages/Splash';
+import Perfil from '../pages/Perfil'
 
 const Stack = createNativeStackNavigator();
 
 export default function StackRoutes() {
     return (
 
-<Stack.Navigator initialRouteName='Splash'>
+<Stack.Navigator initialRouteName='Perfil'>
     <Stack.Screen
         name= 'Home'
         component={Home}
@@ -57,6 +58,16 @@ export default function StackRoutes() {
         component={Splash}
         options={{
             title: 'Inicio',
+            headerStyle: { backgroundColor: 'white' },
+            headerTintColor: 'white',
+            headerShown: false,
+          }}
+    />
+    <Stack.Screen
+        name= 'Perfil'
+        component={Perfil}
+        options={{
+            title: 'Pefil',
             headerStyle: { backgroundColor: 'white' },
             headerTintColor: 'white',
             headerShown: false,
